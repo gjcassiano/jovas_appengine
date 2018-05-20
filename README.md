@@ -5,7 +5,7 @@ This project is no longer actively maintained, and remains here as an archive of
 
 For a replacement, check out this actively maintained [sample](https://github.com/GoogleCloudPlatform/java-docs-samples/tree/master/appengine-java8/endpoints-v2-backend).
 
-appengine-endpoints-helloendpoints-java-maven
+jovas_appengine
 =============================================
 
 A "hello world" application for Google Cloud Endpoints in Java.
