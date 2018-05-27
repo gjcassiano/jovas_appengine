@@ -1,4 +1,4 @@
-package com.example.helloendpoints;
+package com.jovas.models;
 
 public class HelloGreeting {
 
