@@ -1,7 +1,7 @@
 /**
  * @fileoverview
- * Provides methods for the Hello Endpoints sample UI and interaction with the
- * Hello Endpoints API.
+ * Provides methods for the jovas Endpoints sample UI and interaction with the
+ * jovas Endpoints API.
  *
  * @author danielholevoet@google.com (Dan Holevoet)
  */
@@ -15,36 +15,36 @@ google.devrel = google.devrel || {};
 /** samples namespace for DevRel sample code. */
 google.devrel.samples = google.devrel.samples || {};
 
-/** hello namespace for this sample. */
-google.devrel.samples.hello = google.devrel.samples.hello || {};
+/** jovas namespace for this sample. */
+google.devrel.samples.jovas = google.devrel.samples.jovas || {};
 
 /**
  * Client ID of the application (from the APIs Console).
  * @type {string}
  */
-google.devrel.samples.hello.CLIENT_ID =
+google.devrel.samples.jovas.CLIENT_ID =
     '900937835222-ohlobrcrghedhig5cv1f08jcgl48gkot.apps.googleusercontent.com';
 
 /**
  * Scopes used by the application.
  * @type {string}
  */
-google.devrel.samples.hello.SCOPES =
+google.devrel.samples.jovas.SCOPES =
     'https://www.googleapis.com/auth/userinfo.email';
 
 /**
  * Whether or not the user is signed in.
  * @type {boolean}
  */
-google.devrel.samples.hello.signedIn = false;
+google.devrel.samples.jovas.signedIn = false;
 
 /**
  * Loads the application UI after the user has completed auth.
  */
-google.devrel.samples.hello.userAuthed = function() {
+google.devrel.samples.jovas.userAuthed = function() {
   var request = gapi.client.oauth2.userinfo.get().execute(function(resp) {
     if (!resp.code) {
-      google.devrel.samples.hello.signedIn = true;
+      google.devrel.samples.jovas.signedIn = true;
       document.getElementById('signinButton').innerHTML = 'Sign out';
       document.getElementById('authedGreeting').disabled = false;
     }
@@ -56,21 +56,21 @@ google.devrel.samples.hello.userAuthed = function() {
  * @param {boolean} mode Whether or not to use immediate mode.
  * @param {Function} callback Callback to call on completion.
  */
-google.devrel.samples.hello.signin = function(mode, callback) {
-  gapi.auth.authorize({client_id: google.devrel.samples.hello.CLIENT_ID,
-      scope: google.devrel.samples.hello.SCOPES, immediate: mode},
+google.devrel.samples.jovas.signin = function(mode, callback) {
+  gapi.auth.authorize({client_id: google.devrel.samples.jovas.CLIENT_ID,
+      scope: google.devrel.samples.jovas.SCOPES, immediate: mode},
       callback);
 };
 
 /**
  * Presents the user with the authorization popup.
  */
-google.devrel.samples.hello.auth = function() {
-  if (!google.devrel.samples.hello.signedIn) {
-    google.devrel.samples.hello.signin(false,
-        google.devrel.samples.hello.userAuthed);
+google.devrel.samples.jovas.auth = function() {
+  if (!google.devrel.samples.jovas.signedIn) {
+    google.devrel.samples.jovas.signin(false,
+        google.devrel.samples.jovas.userAuthed);
   } else {
-    google.devrel.samples.hello.signedIn = false;
+    google.devrel.samples.jovas.signedIn = false;
     document.getElementById('signinButton').innerHTML = 'Sign in';
     document.getElementById('authedGreeting').disabled = true;
   }
@@ -80,7 +80,7 @@ google.devrel.samples.hello.auth = function() {
  * Prints a greeting to the greeting log.
  * param {Object} greeting Greeting to print.
  */
-google.devrel.samples.hello.print = function(greeting) {
+google.devrel.samples.jovas.print = function(greeting) {
   var element = document.createElement('div');
   element.classList.add('row');
   element.innerHTML = greeting.message;
@@ -91,11 +91,11 @@ google.devrel.samples.hello.print = function(greeting) {
  * Gets a numbered greeting via the API.
  * @param {string} id ID of the greeting.
  */
-google.devrel.samples.hello.getGreeting = function(id) {
-  gapi.client.helloworld.greetings.getGreeting({'id': id}).execute(
+google.devrel.samples.jovas.getGreeting = function(id) {
+  gapi.client.jovas.comment.getGreeting({'id': id}).execute(
       function(resp) {
         if (!resp.code) {
-          google.devrel.samples.hello.print(resp);
+          google.devrel.samples.jovas.print(resp);
         }
       });
 };
@@ -103,13 +103,13 @@ google.devrel.samples.hello.getGreeting = function(id) {
 /**
  * Lists greetings via the API.
  */
-google.devrel.samples.hello.listGreeting = function() {
-  gapi.client.helloworld.greetings.listGreeting().execute(
+google.devrel.samples.jovas.listGreeting = function() {
+  gapi.client.jovas.greetings.listGreeting().execute(
       function(resp) {
         if (!resp.code) {
           resp.items = resp.items || [];
           for (var i = 0; i < resp.items.length; i++) {
-            google.devrel.samples.hello.print(resp.items[i]);
+            google.devrel.samples.jovas.print(resp.items[i]);
           }
         }
       });
@@ -120,14 +120,14 @@ google.devrel.samples.hello.listGreeting = function() {
  * @param {string} greeting Greeting to repeat.
  * @param {string} count Number of times to repeat it.
  */
-google.devrel.samples.hello.multiplyGreeting = function(
+google.devrel.samples.jovas.multiplyGreeting = function(
     greeting, times) {
-  gapi.client.helloworld.greetings.multiply({
+  gapi.client.jovas.greetings.multiply({
       'message': greeting,
       'times': times
     }).execute(function(resp) {
       if (!resp.code) {
-        google.devrel.samples.hello.print(resp);
+        google.devrel.samples.jovas.print(resp);
       }
     });
 };
@@ -135,38 +135,38 @@ google.devrel.samples.hello.multiplyGreeting = function(
 /**
  * Greets the current user via the API.
  */
-google.devrel.samples.hello.authedGreeting = function(id) {
-  gapi.client.helloworld.greetings.authed().execute(
+google.devrel.samples.jovas.authedGreeting = function(id) {
+  gapi.client.jovas.greetings.authed().execute(
       function(resp) {
-        google.devrel.samples.hello.print(resp);
+        google.devrel.samples.jovas.print(resp);
       });
 };
 
 /**
  * Enables the button callbacks in the UI.
  */
-google.devrel.samples.hello.enableButtons = function() {
+google.devrel.samples.jovas.enableButtons = function() {
   document.getElementById('getGreeting').onclick = function() {
-    google.devrel.samples.hello.getGreeting(
+    google.devrel.samples.jovas.getGreeting(
         document.getElementById('id').value);
   }
 
   document.getElementById('listGreeting').onclick = function() {
-    google.devrel.samples.hello.listGreeting();
+    google.devrel.samples.jovas.listGreeting();
   }
 
   document.getElementById('multiplyGreetings').onclick = function() {
-    google.devrel.samples.hello.multiplyGreeting(
+    google.devrel.samples.jovas.multiplyGreeting(
         document.getElementById('greeting').value,
         document.getElementById('count').value);
   }
 
   document.getElementById('authedGreeting').onclick = function() {
-    google.devrel.samples.hello.authedGreeting();
+    google.devrel.samples.jovas.authedGreeting();
   }
   
   document.getElementById('signinButton').onclick = function() {
-    google.devrel.samples.hello.auth();
+    google.devrel.samples.jovas.auth();
   }
 };
 
@@ -174,19 +174,19 @@ google.devrel.samples.hello.enableButtons = function() {
  * Initializes the application.
  * @param {string} apiRoot Root of the API's path.
  */
-google.devrel.samples.hello.init = function(apiRoot) {
-  // Loads the OAuth and helloworld APIs asynchronously, and triggers login
+google.devrel.samples.jovas.init = function(apiRoot) {
+  // Loads the OAuth and jovas APIs asynchronously, and triggers login
   // when they have completed.
   var apisToLoad;
   var callback = function() {
     if (--apisToLoad == 0) {
-      google.devrel.samples.hello.enableButtons();
-      google.devrel.samples.hello.signin(true,
-          google.devrel.samples.hello.userAuthed);
+      google.devrel.samples.jovas.enableButtons();
+      google.devrel.samples.jovas.signin(true,
+          google.devrel.samples.jovas.userAuthed);
     }
   }
 
   apisToLoad = 2; // must match number of calls to gapi.client.load()
-  gapi.client.load('helloworld', 'v1', callback, apiRoot);
+  gapi.client.load('jovas', 'v1', callback, apiRoot);
   gapi.client.load('oauth2', 'v2', callback);
 };
